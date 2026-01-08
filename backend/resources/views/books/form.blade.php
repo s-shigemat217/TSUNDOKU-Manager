@@ -8,8 +8,11 @@
 @endif
 
 <form method="GET" action="/books/search">
-    <input type="text" name="q" placeholder="本のタイトルを入力" required>
-    <button type="submit">検索</button>
+    <div class="form-group">
+        <label for="q">本のタイトルを入力</label>
+        <input type="text" name="q" id="q" placeholder="本のタイトルを入力" required>
+    </div>
+    <button class="btn btn-search" type="submit">検索</button>
 </form>
 @if(!empty($books))
 <h2>検索結果：「{{ $q }}」</h2>
@@ -51,7 +54,7 @@
                 <input type="hidden" name="source" value="google_books">
                 <input type="hidden" name="source_id" value="{{ $book['id'] }}">
 
-                <button type="submit">登録</button>
+                <button type="submit" class="btn btn-primary">登録</button>
 
             </form>
         </li>
