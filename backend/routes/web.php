@@ -31,7 +31,21 @@ Route::get('/books/search', function (Request $request) {
 
     $books = $response->json()['items'] ?? [];
 
-    return view('books.form', compact('books', 'q'));
+    $sourceIds = collect($books)
+        ->pluck('id')
+        ->filter()
+        ->values()
+        ->all();
+
+    $registeredSourceIds = [];
+    if (!empty($sourceIds)) {
+        $registeredSourceIds = Book::where('source', 'google_books')
+            ->whereIn('source_id', $sourceIds)
+            ->pluck('source_id')
+            ->all();
+    }
+
+    return view('books.form', compact('books', 'q', 'registeredSourceIds'));
 });
 
 // Add a new book from external API data

@@ -27,9 +27,14 @@
 <h2>検索結果：「{{ $q }}」</h2>
 
     <ul class="mt-16 grid grid-cols-5 gap-6">
+    @php
+        $registeredSourceIdMap = isset($registeredSourceIds) ? array_flip($registeredSourceIds) : [];
+    @endphp
     @foreach($books as $book)
         @php
             $info = $book['volumeInfo'] ?? [];
+            $sourceId = $book['id'] ?? null;
+            $isRegistered = $sourceId && isset($registeredSourceIdMap[$sourceId]);
         @endphp
 
         <li class="border bg-white border-gray-500 rounded-lg p-4 flex flex-col gap-4">
@@ -65,7 +70,11 @@
                 <input type="hidden" name="source" value="google_books">
                 <input type="hidden" name="source_id" value="{{ $book['id'] }}">
 
-                    <x-button type="submit" size="sm">登録</x-button>
+                    @if($isRegistered)
+                        <x-button type="button" size="sm" variant="muted" disabled>登録済み</x-button>
+                    @else
+                        <x-button type="submit" size="sm">登録</x-button>
+                    @endif
 
             </form>
         </li>
