@@ -35,4 +35,8 @@ return [
         ],
     ],
 
+    'google_books' => [
+        'max_results' => env('GOOGLE_BOOKS_MAX_RESULTS', 5),
+    ],
+
 ];

@@ -22,10 +22,11 @@ Route::get('/books/form', function () {
 
 Route::get('/books/search', function (Request $request) {
     $q = $request->query('q');
+    $maxResults = (int) config('services.google_books.max_results', 10);
 
     $response = Http::get('https://www.googleapis.com/books/v1/volumes', [
         'q' => 'intitle:' . $q,
-        'maxResults' => 10,
+        'maxResults' => $maxResults,
     ]);
 
     $books = $response->json()['items'] ?? [];

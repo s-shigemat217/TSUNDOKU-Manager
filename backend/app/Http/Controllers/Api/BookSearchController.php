@@ -17,7 +17,8 @@ class BookSearchController extends Controller
             return response()->json(['message' => '検索クエリが必要です'], 400);
         }
 
-        $result = $googleBooksService->search($query, 10);
+        $maxResults = (int) config('services.google_books.max_results', 10);
+        $result = $googleBooksService->search($query, $maxResults);
 
         if (!$result['ok']) {
             return response()->json(['message' => '外部APIの呼び出しに失敗しました'], 502);
