@@ -1,7 +1,9 @@
 <x-header />
-<div class="page-header flex items-center justify-between">
-    <h1 class="page-title">本を登録</h1>
-    <a class="btn btn-return" href="/books">一覧を見る</a>
+<div class="flex items-center justify-between">
+    <h1 class="text-3xl font-bold">本を登録</h1>
+    <a href="/books/" class="inline-flex items-center w-full px-5 py-3 mb-3 mr-1 text-base font-semibold text-white no-underline align-middle bg-blue-600 border border-transparent border-solid rounded-md cursor-pointer select-none sm:mb-0 sm:w-auto hover:bg-blue-700 hover:border-blue-700 hover:text-white focus-within:bg-blue-700 focus-within:border-blue-700">
+        一覧を見る<svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+    </a>
 </div>
 @if(session('message'))
     <div class="message">
@@ -10,9 +12,16 @@
 @endif
 
 <form method="GET" action="/books/search">
-    <div class="form-group">
-        <label for="q">本のタイトルを入力</label>
-        <input type="text" name="q" id="q" placeholder="本のタイトルを入力" required>
+    <div class="mb-4">
+        <label for="q" class="block mb-1 font-bold">本のタイトルを入力</label>
+        <input
+            type="text"
+            name="q"
+            id="q"
+            placeholder="本のタイトルを入力"
+            required
+            class="w-full px-2 py-2 border border-gray-300 rounded text-base bg-white"
+        >
     </div>
     <button class="btn btn-search" type="submit">検索</button>
 </form>
