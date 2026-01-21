@@ -1,15 +1,13 @@
 <x-header />
+
 <div class="flex items-center justify-between">
     <h1 class="text-3xl font-bold">本を登録</h1>
-    <a href="/books/" class="inline-flex items-center w-full px-5 py-3 mb-3 mr-1 text-base font-semibold text-white no-underline align-middle bg-blue-600 border border-transparent border-solid rounded-md cursor-pointer select-none sm:mb-0 sm:w-auto hover:bg-blue-700 hover:border-blue-700 hover:text-white focus-within:bg-blue-700 focus-within:border-blue-700">
-        一覧を見る<svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-    </a>
+        <x-button href="/books/" class="w-full mb-3 mr-1 sm:mb-0 sm:w-auto">
+            一覧を見る<svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+        </x-button>
 </div>
-@if(session('message'))
-    <div class="message">
-        <p class="text-xl font-bold text-green-800">{{ session('message') }}</p>
-    </div>
-@endif
+
+<x-message />
 
 <form method="GET" action="/books/search">
     <div class="mb-4">
@@ -23,37 +21,39 @@
             class="w-full px-2 py-2 border border-gray-300 rounded text-base bg-white"
         >
     </div>
-    <button class="btn btn-search" type="submit">検索</button>
+        <x-button type="submit" class="w-full mb-3 mr-1 sm:mb-0 sm:w-auto">検索</x-button>
 </form>
 @if(!empty($books))
 <h2>検索結果：「{{ $q }}」</h2>
 
-<ul class="mt-16" style="list-style-type: none; padding: 0;">
+    <ul class="mt-16 grid grid-cols-5 gap-6">
     @foreach($books as $book)
         @php
             $info = $book['volumeInfo'] ?? [];
         @endphp
 
-        <li style="margin-bottom: 1em;">
+        <li class="border bg-white border-gray-500 rounded-lg p-4 flex flex-col gap-4">
             @php
                 $thumbnail = $info['imageLinks']['thumbnail'] ?? null;
                 if ($thumbnail) {
                     $thumbnail = str_replace('http://', 'https://', $thumbnail);
                 }
             @endphp
-            <div class="result-image">
+            <div class="flex justify-center align-top">
                 @if($thumbnail)
-                    <img src="{{ $thumbnail }}" alt="cover">
+                    <img src="{{ $thumbnail }}" alt="cover" class="w-[150px] h-[212px] object-cover">
                 @else
-                    <img src="https://placehold.jp/cccccc/ffffff/100x140.png?text=No+Image" alt="no cover">
+                    <img src="https://placehold.jp/cccccc/ffffff/150x212.png?text=No+Image" alt="no cover" class="w-[150px] h-[212px] object-cover">
                 @endif
             </div>
 
-            <strong>{{ $info['title'] ?? 'タイトル不明' }}</strong><br>
-            著者：{{ $info['authors'][0] ?? '不明' }}<br>
-            出版社：{{ $info['publisher'] ?? '不明' }}<br>
+            <div class="flex flex-col gap-1 min-h-[5.5rem]">
+                <strong class="leading-snug">{{ $info['title'] ?? 'タイトル不明' }}</strong>
+                <p class="text-sm">著者：{{ $info['authors'][0] ?? '不明' }}</p>
+                <p class="text-sm">出版社：{{ $info['publisher'] ?? '不明' }}</p>
+            </div>
 
-            <form method="POST" action="/books/from-api">
+            <form method="POST" action="/books/from-api" class="mt-auto">
                 @csrf
 
                 <input type="hidden" name="title" value="{{ $info['title'] ?? '' }}">
@@ -65,11 +65,12 @@
                 <input type="hidden" name="source" value="google_books">
                 <input type="hidden" name="source_id" value="{{ $book['id'] }}">
 
-                <button type="submit" class="btn btn-primary">登録</button>
+                    <x-button type="submit" size="sm">登録</x-button>
 
             </form>
         </li>
     @endforeach
 </ul>
 @endif
+
 <x-footer />

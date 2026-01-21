@@ -11,24 +11,25 @@
 
     <!-- Styles / Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
 </head>
 <body>
-    {{-- <div class=""></div>
-    <div class="bg-white lg:pb-12">
-      <div class="mx-auto max-w-screen-2xl px-4 md:px-8"> --}}
-        <header class="flex items-center justify-between py-4 md:p-8 bg-green-50">
-            <!-- logo - start -->
-            <a href="/" class="inline-flex items-center gap-2.5 text-2xl font-bold text-black md:text-3xl" aria-label="logo">
-                Read Tracker
-            </a>
-            <!-- logo - end -->
+    <header class="flex items-center justify-between py-4 md:p-8 bg-green-50">
+        <!-- logo - start -->
+        <a href="/" class="inline-flex items-center gap-2.5 text-2xl font-bold text-black md:text-3xl" aria-label="logo">
+            Read Tracker
+        </a>
+        <!-- logo - end -->
 
-            <!-- nav - start -->
-            <nav class="hidden gap-12 lg:flex">
-                <a href="#" class="text-lg font-semibold text-gray-600 transition duration-100 hover:text-indigo-500 active:text-indigo-700">ダッシュボード</a>
-                <a href="/books" class="text-lg font-semibold text-gray-600 transition duration-100 hover:text-indigo-500 active:text-indigo-700">My 本棚</a>
-                <a href="#" class="text-lg font-semibold text-gray-600 transition duration-100 hover:text-indigo-500 active:text-indigo-700">読書ログ</a>
-            </nav>
-            <!-- nav - end -->
+        <!-- nav - start -->
+        <nav class="hidden gap-12 lg:flex">
+            <a href="#" class="text-lg font-semibold text-gray-600 transition duration-100 hover:text-indigo-500 active:text-indigo-700">ダッシュボード</a>
+            <a href="/books" class="text-lg font-semibold text-gray-600 transition duration-100 hover:text-indigo-500 active:text-indigo-700">My 本棚</a>
+            <a href="#" class="text-lg font-semibold text-gray-600 transition duration-100 hover:text-indigo-500 active:text-indigo-700">読書ログ</a>
+        </nav>
+        <!-- nav - end -->
     </header>
     <main class="p-10 bg-slate-50 min-h-screen">
+    <div class="max-w-7xl mx-auto px-4">

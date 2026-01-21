@@ -1,11 +1,11 @@
 <x-header />
 <div class="flex items-center justify-between">
     <h1 class="text-3xl font-bold">本の詳細</h1>
-    <a href="/books/form" class="inline-flex items-center w-full px-5 py-3 mb-3 mr-1 text-base font-semibold text-white no-underline align-middle bg-blue-600 border border-transparent border-solid rounded-md cursor-pointer select-none sm:mb-0 sm:w-auto hover:bg-blue-700 hover:border-blue-700 hover:text-white focus-within:bg-blue-700 focus-within:border-blue-700">
+    <x-button href="/books/form" class="w-full mb-3 mr-1 sm:mb-0 sm:w-auto">
         本を追加<svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-    </a>
+    </x-button>
 </div>
-<div class="container flex gap-8 mt-8">
+<div class="flex gap-8 mt-8">
     <div class="w-3/12 flex flex-col gap-8">
         <div class="p-4 border border-gray-500 rounded-xl">
             <div class="flex justify-center">
@@ -20,37 +20,31 @@
             <p class="text-lg font-semibold mb-4">クイックアクション</p>
             <ul class="flex flex-col gap-4">
                 <li>
-                    <button
-                        type="button"
-                        disabled
-                        class="w-full inline-flex items-center justify-center rounded-lg px-4 py-2.5 text-sm font-semibold
-                            bg-slate-200 text-slate-500 cursor-not-allowed"
-                    >読書開始（未実装）</button>
+                    <x-button type="button" size="sm" variant="muted" class="w-full" disabled>
+                        読書開始（未実装）
+                    </x-button>
                 </li>
                 <li>
-                    <button
-                        type="button"
-                        disabled
-                        class="w-full inline-flex items-center justify-center rounded-lg px-4 py-2.5 text-sm font-semibold
-                            bg-slate-200 text-slate-500 cursor-not-allowed"
-                    >読了にする（未実装）</button>
+                    <x-button type="button" size="sm" variant="muted" class="w-full" disabled>
+                        読了にする（未実装）
+                    </x-button>
                 </li>
                 <li>
-                    <a
-                        href="/books/{{ $book->id }}/edit"
-                        class="w-full inline-flex items-center justify-center rounded-lg px-4 py-2.5 text-sm font-semibold
-                            bg-yellow-500 text-white hover:bg-yellow-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow-300"
-                    >編集(未実装)</a>
+                    <x-button href="/books/{{ $book->id }}/edit" size="sm" variant="warning" class="w-full">
+                        編集(未実装)
+                    </x-button>
                 </li>
                 <li>
                     <form method="POST" action="/books/{{ $book->id }}">
                         @csrf
                         @method('DELETE')
-                        <button
+                        <x-button
                             type="submit"
+                            size="sm"
+                            variant="danger"
+                            class="w-full"
                             onclick="return confirm('本当に削除しますか？')"
-                            class="w-full inline-flex items-center justify-center rounded-lg px-4 py-2.5 text-sm font-semibold bg-red-600 text-white hover:bg-red-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-300"
-                        >削除</button>
+                        >削除</x-button>
                     </form>
                 </li>
             </ul>
