@@ -1,6 +1,6 @@
     </div>
     </main>
-    <footer class="footer bg-green-50 text-center p-4">
+    <footer class="footer">
         <small>&copy; 2026 My Library</small>
     </footer>
 </body>

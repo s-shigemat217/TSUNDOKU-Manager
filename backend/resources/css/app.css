@@ -1,4 +1,4 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
@@ -6,6 +6,69 @@
 @source '../**/*.js';
 
 @theme {
-    --font-sans: 'Inter', 'Noto Sans JP', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
-        'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-sans:
+        "Inter", "Noto Sans JP", ui-sans-serif, system-ui, sans-serif,
+        "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+        "Noto Color Emoji";
+    /* color */
+    --primary-100: #6e8ca0;
+    --primary-200: #537184;
+    --primary-300: #153546;
+    --accent-100: #b4d4e6;
+    --accent-200: #567484;
+    --text-100: #333333;
+    --text-200: #5c5c5c;
+    --bg-100: #f0f4f7;
+    --bg-200: #e6eaed;
+    --bg-300: #bdc1c4;
+}
+
+body {
+    font-family: var(--font-sans);
+    color: var(--color-text-100);
+    background-color: var(--bg-100);
+}
+/* header */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2rem 4rem;
+    background-color: var(--accent-100);
+    color: var(--color-text-100);
+
+    & .logo {
+        color: var(--color-text-100);
+        font-size: 1.25rem;
+        font-weight: bold;
+    }
+
+    & .nav-list {
+        display: flex;
+        gap: 2rem;
+        list-style: none;
+    }
+    & .nav-item {
+        a {
+            font-weight: 600;
+            color: var(--color-text-100);
+            text-decoration: none;
+            transition: color 0.1s;
+
+            &:hover {
+                color: var(--primary-100);
+            }
+            &:active {
+                color: var(--primary-200);
+            }
+        }
+    }
+}
+
+/* footer */
+.footer {
+    text-align: center;
+    padding: 1rem;
+    background-color: var(--accent-100);
+    color: var(--color-text-100);
 }

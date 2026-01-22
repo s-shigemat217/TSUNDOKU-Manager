@@ -15,21 +15,16 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Noto+Sans+JP:wght@400;600;700&display=swap" rel="stylesheet">
 
 </head>
-<body class="font-sans">
-    <header class="flex items-center justify-between py-4 md:p-8 bg-green-50">
-        <!-- logo - start -->
-        <a href="/" class="inline-flex items-center gap-2.5 text-2xl font-bold text-black md:text-3xl" aria-label="logo">
-            Read Tracker
-        </a>
-        <!-- logo - end -->
-
-        <!-- nav - start -->
-        <nav class="hidden gap-12 lg:flex">
-            <a href="#" class="text-lg font-semibold text-gray-600 transition duration-100 hover:text-indigo-500 active:text-indigo-700">ダッシュボード</a>
-            <a href="/books" class="text-lg font-semibold text-gray-600 transition duration-100 hover:text-indigo-500 active:text-indigo-700">My 本棚</a>
-            <a href="#" class="text-lg font-semibold text-gray-600 transition duration-100 hover:text-indigo-500 active:text-indigo-700">読書ログ</a>
+<body>
+    <header class="header">
+        <div class="logo">Read Tracker</div>
+        <nav class="nav">
+            <ul class="nav-list">
+                <li class="nav-item"><a href="#">ダッシュボード</a></li>
+                <li class="nav-item"><a href="/books/" >My 本棚</a></li>
+                <li class="nav-item"><a href="#" >読書ログ</a></li>
+            </ul>
         </nav>
-        <!-- nav - end -->
     </header>
-    <main class="p-10 bg-slate-50 min-h-screen">
+    <main class="p-10 min-h-screen">
     <div class="max-w-7xl mx-auto px-4">
