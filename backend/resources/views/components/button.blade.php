@@ -13,11 +13,11 @@
         'md' => 'px-5 py-3 text-base',
     ];
     $variants = [
-        'primary' => 'bg-blue-600 text-white hover:bg-blue-700 focus-visible:ring-blue-300',
-        'warning' => 'bg-yellow-500 text-white hover:bg-yellow-600 focus-visible:ring-yellow-300',
-        'danger' => 'bg-red-600 text-white hover:bg-red-700 focus-visible:ring-red-300',
-        'muted' => 'bg-slate-200 text-slate-500 cursor-not-allowed',
-        'outline' => 'border border-gray-300 text-gray-700 hover:bg-gray-50 focus-visible:ring-gray-300',
+        'primary' => 'bg-[var(--primary-200)] text-[var(--bg-100)] hover:bg-[var(--primary-300)] focus-visible:ring-[var(--primary-100)]',
+        'warning' => 'bg-[var(--accent-100)] text-[var(--text-100)] hover:bg-[var(--accent-200)] focus-visible:ring-[var(--accent-200)]',
+        'danger' => 'bg-[var(--primary-300)] text-[var(--bg-100)] hover:bg-[var(--primary-200)] focus-visible:ring-[var(--primary-100)]',
+        'muted' => 'bg-[var(--bg-200)] text-[var(--text-200)] cursor-not-allowed',
+        'outline' => 'border border-[var(--bg-300)] text-[var(--text-100)] hover:bg-[var(--bg-100)] focus-visible:ring-[var(--primary-100)]',
     ];
 
     $sizeClass = $sizes[$size] ?? $sizes['md'];
