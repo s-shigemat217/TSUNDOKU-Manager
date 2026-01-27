@@ -82,6 +82,7 @@
 ## ER図
 
 （ここに ER図の画像、またはリンクを配置予定）
+![ER Diagram](./docs/tsundoku_manager_er_diagram.png)
 
 ---
 
@@ -104,8 +105,8 @@
 ## セットアップ方法
 
 ```bash
-git clone https://github.com/（リポジトリURL）
-cd tsundoku-manager
+git clone https://github.com/s-shigemat217/TSUNDOKU-Manager.git
+cd TSUNDOKU-Manager
 cp .env.example .env
 ./vendor/bin/sail up -d
 ./vendor/bin/sail artisan migrate
