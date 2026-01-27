@@ -81,7 +81,6 @@
 
 ## ER図
 
-（ここに ER図の画像、またはリンクを配置予定）
 ![ER Diagram](./docs/tsundoku_manager_er_diagram.png)
 
 ---
