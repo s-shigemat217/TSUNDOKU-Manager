@@ -7,7 +7,7 @@
 </div>
 <div class="flex gap-8 mt-8">
     <div class="w-3/12 flex flex-col gap-8">
-        <div class="p-4 border border-gray-500 rounded-xl">
+        <div class="p-4 border border-gray-500 rounded-xl bg-white">
             <div class="flex justify-center">
             @if($book->cover_image_url)
                 <img src="{{ $book->cover_image_url }}" alt="cover">
@@ -16,7 +16,7 @@
             @endif
             </div>
         </div>
-        <div class="p-4 border border-gray-500 rounded-xl">
+        <div class="p-4 border border-gray-500 rounded-xl bg-white">
             <p class="text-lg font-semibold mb-4">クイックアクション</p>
             <ul class="flex flex-col gap-4">
                 <li>
@@ -51,7 +51,7 @@
         </div>
     </div>
     <div class="w-8/12 flex flex-col gap-8">
-        <div class="p-4 border border-gray-500 rounded-xl">
+        <div class="p-4 border border-gray-500 rounded-xl bg-white">
             <p class="text-lg font-semibold mb-4">基本情報</p>
             <p class="">タイトル</p>
             <p class="">{{ $book->title }}</p>
@@ -67,7 +67,7 @@
             <p class="">{{ $book->page_count ?? '不明' }}</p>
         </div>
         <div class="flex gap-8">
-            <div class="w-1/2 p-4 border border-gray-500 rounded-xl">
+            <div class="w-1/2 p-4 border border-gray-500 rounded-xl bg-white">
                 <p class="text-lg font-semibold mb-4">購入・読書情報</p>
                 <p class="">購入日</p>
                 <p class="">
@@ -80,7 +80,7 @@
                 <p class="">読書終了日</p>
                 <p class="">{{ $book->reading_finished_date?->format('Y-m-d') ?? '未設定' }}</p>
             </div>
-            <div class="w-1/2 p-4 border border-gray-500 rounded-xl">
+            <div class="w-1/2 p-4 border border-gray-500 rounded-xl bg-white">
                 <p class="text-lg font-semibold mb-4">カテゴリー情報</p>
                 <p class="">カテゴリー</p>
                 <p class="">{{ $book->category ?? '不明' }}</p>
@@ -96,7 +96,7 @@
                 </div>
             </div>
         </div>
-        <div class="p-4 border border-gray-500 rounded-xl">
+        <div class="p-4 border border-gray-500 rounded-xl bg-white">
             <p class="text-lg font-semibold mb-4">読書メモ</p>
             <div class="whitespace-pre-wrap">{{ $book->reading_notes ?? '読書メモはありません。' }}</div>
         </div>

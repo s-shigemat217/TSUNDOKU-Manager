@@ -27,7 +27,7 @@ class BookController extends Controller
         $q = $request->query('q');
         if ($q === '') {
             // 何も入力されていない場合はフォームだけ表示
-            return view('books.form', [
+            return view('books.create', [
                 'books' => [],
                 'q' => $q,
                 'registeredSourceIds' => [],
