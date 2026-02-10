@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use App\Models\Book;
+use App\Services\GoogleBooksService;
 
 class BookController extends Controller
 {
@@ -22,11 +23,13 @@ class BookController extends Controller
     }
 
     // Search for books using an external API.
-    public function search(Request $request)
+    public function search(Request $request , GoogleBooksService $googleBooksService)
     {
         $q = $request->query('q');
+
+        // クエリが空なら“フォーム表示”
         if ($q === '') {
-            // 何も入力されていない場合はフォームだけ表示
+
             return view('books.create', [
                 'books' => [],
                 'q' => $q,
@@ -38,10 +41,20 @@ class BookController extends Controller
         $response = Http::get('https://www.googleapis.com/books/v1/volumes', [
             'q' => 'intitle:' . $q,
             'maxResults' => $maxResults,
+            'key' => config('services.google_books.key'),
         ]);
+
+        if ($response->failed()) {
+            return view('books.create', [
+                'books' => [],
+                'q' => $q,
+                'registeredSourceIds' => [],
+            ]);
+        }
 
         $books = $response->json()['items'] ?? [];
 
+        // 重複登録防止のため、すでに登録されている書籍の source_id を取得
         $sourceIds = collect($books)
             ->pluck('id')
             ->filter()
@@ -49,6 +62,7 @@ class BookController extends Controller
             ->all();
 
         $registeredSourceIds = [];
+
         if (!empty($sourceIds)) {
             $registeredSourceIds = Book::where('source', 'google_books')
                 ->whereIn('source_id', $sourceIds)

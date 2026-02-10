@@ -37,6 +37,7 @@ return [
 
     'google_books' => [
         'max_results' => env('GOOGLE_BOOKS_MAX_RESULTS', 5),
+        'key' => env('GOOGLE_BOOKS_API_KEY'),
     ],
 
 ];

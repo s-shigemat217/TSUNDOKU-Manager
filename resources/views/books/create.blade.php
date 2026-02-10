@@ -68,7 +68,7 @@
                 <input type="hidden" name="cover_image_url" value="{{ $info['imageLinks']['thumbnail'] ?? '' }}">
 
                 <input type="hidden" name="source" value="google_books">
-                <input type="hidden" name="source_id" value="{{ $book['id'] }}">
+                <input type="hidden" name="source_id" value="{{ $sourceId }}">
 
                     @if($isRegistered)
                         <x-button type="button" size="sm" variant="muted" disabled>登録済み</x-button>
