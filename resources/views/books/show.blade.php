@@ -19,16 +19,16 @@
         <div class="p-4 border border-gray-500 rounded-xl bg-white">
             <p class="text-lg font-semibold mb-4">クイックアクション</p>
             <ul class="flex flex-col gap-4">
-                <li>
+                {{-- <li>
                     <x-button type="button" size="sm" variant="muted" class="w-full" disabled>
                         読書開始（未実装）
                     </x-button>
-                </li>
-                <li>
+                </li> --}}
+                {{-- <li>
                     <x-button type="button" size="sm" variant="muted" class="w-full" disabled>
                         読了にする（未実装）
                     </x-button>
-                </li>
+                </li> --}}
                 <li>
                     <x-button href="/books/{{ $book->id }}/edit" size="sm" variant="warning" class="w-full">
                         編集
