@@ -12,7 +12,10 @@ class BookController extends Controller
     // Display a listing of the books.
     public function index()
     {
-        $books = Book::orderBy('created_at', 'desc')->get();
+        $books = Book::forUser(auth()->id())
+            ->orderBy('created_at', 'desc')
+            ->get();
+
         return view('books.index', compact('books'));
     }
 
@@ -64,7 +67,8 @@ class BookController extends Controller
         $registeredSourceIds = [];
 
         if (!empty($sourceIds)) {
-            $registeredSourceIds = Book::where('source', 'google_books')
+            $registeredSourceIds = Book::forUser(auth()->id())
+                ->where('source', 'google_books')
                 ->whereIn('source_id', $sourceIds)
                 ->pluck('source_id')
                 ->all();
@@ -88,7 +92,8 @@ class BookController extends Controller
         ]);
 
         if (
-            Book::where('source', $validated['source'])
+            Book::forUser(auth()->id())
+                ->where('source', $validated['source'])
                 ->where('source_id', $validated['source_id'])
                 ->exists()
         ) {
@@ -97,6 +102,7 @@ class BookController extends Controller
 
         Book::create([
             ...$validated,
+            'user_id' => auth()->id(),
             'status' => 'owned',
         ]);
 
@@ -105,16 +111,22 @@ class BookController extends Controller
 
     public function show(Book $book)
     {
+        $this->ensureBookOwner($book);
+
         return view('books.show', compact('book'));
     }
 
     public function edit(Book $book)
     {
+        $this->ensureBookOwner($book);
+
         return view('books.edit', compact('book'));
     }
 
     public function update(Request $request, Book $book)
     {
+        $this->ensureBookOwner($book);
+
         $validated = $request->validate([
             'title' => ['required', 'string'],
             'author' => ['nullable', 'string'],
@@ -163,8 +175,15 @@ class BookController extends Controller
     // Remove the specified book from storage.
     public function destroy(Book $book)
     {
+        $this->ensureBookOwner($book);
+
         $book->delete();
         return redirect()->route('books.index')->with('message', '書籍を削除しました。');
+    }
+
+    private function ensureBookOwner(Book $book): void
+    {
+        abort_unless((int) $book->user_id === (int) auth()->id(), 404);
     }
 
 }
