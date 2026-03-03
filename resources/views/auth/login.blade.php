@@ -1,47 +1,64 @@
 <x-guest-layout>
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
+    <div class="auth-form-head">
+        <h2>ログイン</h2>
+        <p>登録済みのアカウントでTSUNDOKU Managerにアクセスします。</p>
+    </div>
 
-    <form method="POST" action="{{ route('login') }}">
+    <x-auth-session-status class="auth-session-status" :status="session('status')" />
+
+    <form method="POST" action="{{ route('login') }}" class="auth-form">
         @csrf
 
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+        <div class="auth-field">
+            <x-input-label for="email" class="auth-label" value="メールアドレス" />
+            <x-text-input
+                id="email"
+                class="auth-input block mt-2 w-full"
+                type="email"
+                name="email"
+                :value="old('email')"
+                required
+                autofocus
+                autocomplete="username"
+            />
+            <x-input-error :messages="$errors->get('email')" class="auth-error mt-2" />
         </div>
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
-
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+        <div class="auth-field">
+            <x-input-label for="password" class="auth-label" value="パスワード" />
+            <x-text-input
+                id="password"
+                class="auth-input block mt-2 w-full"
+                type="password"
+                name="password"
+                required
+                autocomplete="current-password"
+            />
+            <x-input-error :messages="$errors->get('password')" class="auth-error mt-2" />
         </div>
 
-        <!-- Remember Me -->
-        <div class="block mt-4">
-            <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">
-                <span class="ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
-            </label>
-        </div>
+        <label for="remember_me" class="auth-checkbox-label">
+            <input id="remember_me" type="checkbox" class="auth-checkbox" name="remember">
+            <span>ログイン状態を保持する</span>
+        </label>
 
-        <div class="flex items-center justify-end mt-4">
+        <div class="auth-form-actions">
             @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
+                <a class="auth-text-link" href="{{ route('password.request') }}">
+                    パスワードを忘れた場合
                 </a>
             @endif
 
-            <x-primary-button class="ms-3">
-                {{ __('Log in') }}
-            </x-primary-button>
+            <button type="submit" class="auth-submit-btn">
+                ログイン
+            </button>
         </div>
+
+        @if (Route::has('register'))
+            <p class="auth-switch">
+                アカウントをお持ちでない方は
+                <a href="{{ route('register') }}">新規登録</a>
+            </p>
+        @endif
     </form>
 </x-guest-layout>
