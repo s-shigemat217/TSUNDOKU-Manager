@@ -1,85 +1,104 @@
 <x-header />
 
-<div class="flex items-center justify-between">
-    <h1 class="text-3xl font-bold">本を登録</h1>
-        <x-button href="/books/" class="w-full mb-3 mr-1 sm:mb-0 sm:w-auto">
-            一覧を見る<svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-        </x-button>
-</div>
+@php
+    $searchResults = $books ?? [];
+@endphp
+
+<section class="books-head">
+    <div>
+        <p class="books-kicker">Add New Book</p>
+        <h1>本を登録</h1>
+        <p>タイトル検索して、見つけた本をワンクリックで本棚に追加できます。</p>
+    </div>
+    <x-button href="{{ route('books.index') }}" variant="outline">一覧を見る</x-button>
+</section>
 
 <x-message />
 
-<form method="GET" action="/books/search">
-    <div class="mb-4">
-        <label for="q" class="block mb-1 font-bold">本のタイトルを入力</label>
-        <input
-            type="text"
-            name="q"
-            id="q"
-            placeholder="本のタイトルを入力"
-            required
-            class="w-full px-2 py-2 border border-gray-300 rounded text-base bg-white"
-        >
+@if ($errors->any())
+    <div class="books-errors">
+        <p>入力内容を確認してください。</p>
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
     </div>
-        <x-button type="submit" class="w-full mb-3 mr-1 sm:mb-0 sm:w-auto">検索</x-button>
-</form>
-@if(!empty($books))
-<h2>検索結果：「{{ $q }}」</h2>
+@endif
 
-    <ul class="mt-16 grid grid-cols-5 gap-6">
+<section class="books-search-panel">
+    <form method="GET" action="{{ route('books.search') }}" class="books-search-form">
+        <label for="q">本のタイトルを入力</label>
+        <div class="books-search-row">
+            <input
+                type="text"
+                name="q"
+                id="q"
+                value="{{ $q ?? '' }}"
+                placeholder="例: 嫌われる勇気"
+                required
+            >
+            <x-button type="submit">検索</x-button>
+        </div>
+    </form>
+</section>
+
+@if(!empty($searchResults))
+    <section class="books-result-head">
+        <h2>検索結果: 「{{ $q }}」</h2>
+    </section>
+
     @php
         $registeredSourceIdMap = isset($registeredSourceIds) ? array_flip($registeredSourceIds) : [];
     @endphp
-    @foreach($books as $book)
-        @php
-            $info = $book['volumeInfo'] ?? [];
-            $sourceId = $book['id'] ?? null;
-            $isRegistered = $sourceId && isset($registeredSourceIdMap[$sourceId]);
-        @endphp
 
-        <li class="border bg-white border-gray-500 rounded-lg p-4 flex flex-col gap-4">
+    <ul class="books-grid" aria-label="検索結果一覧">
+        @foreach($searchResults as $book)
             @php
+                $info = $book['volumeInfo'] ?? [];
+                $sourceId = $book['id'] ?? null;
+                $isRegistered = $sourceId && isset($registeredSourceIdMap[$sourceId]);
                 $thumbnail = $info['imageLinks']['thumbnail'] ?? null;
                 if ($thumbnail) {
                     $thumbnail = str_replace('http://', 'https://', $thumbnail);
                 }
             @endphp
-            <div class="flex justify-center align-top">
-                @if($thumbnail)
-                    <img src="{{ $thumbnail }}" alt="cover" class="w-[150px] h-[212px] object-cover">
-                @else
-                    <img src="https://placehold.jp/cccccc/ffffff/150x212.png?text=No+Image" alt="no cover" class="w-[150px] h-[212px] object-cover">
-                @endif
-            </div>
 
-            <div class="flex flex-col gap-1 min-h-[5.5rem]">
-                <strong class="leading-snug">{{ $info['title'] ?? 'タイトル不明' }}</strong>
-                <p class="text-sm">著者：{{ $info['authors'][0] ?? '不明' }}</p>
-                <p class="text-sm">出版社：{{ $info['publisher'] ?? '不明' }}</p>
-            </div>
+            <li class="books-item-card">
+                <div class="books-cover-wrap">
+                    @if($thumbnail)
+                        <img src="{{ $thumbnail }}" alt="{{ $info['title'] ?? 'タイトル不明' }} の表紙" class="books-cover">
+                    @else
+                        <img src="https://placehold.jp/cccccc/ffffff/300x424.png?text=No+Image" alt="表紙画像なし" class="books-cover">
+                    @endif
+                </div>
 
-            <form method="POST" action="{{ route('books.store') }}" class="mt-auto">
-                @csrf
+                <div class="books-meta">
+                    <strong>{{ $info['title'] ?? 'タイトル不明' }}</strong>
+                    <p>著者: {{ $info['authors'][0] ?? '不明' }}</p>
+                    <p>出版社: {{ $info['publisher'] ?? '不明' }}</p>
+                </div>
 
-                <input type="hidden" name="title" value="{{ $info['title'] ?? '' }}">
-                <input type="hidden" name="author" value="{{ $info['authors'][0] ?? '' }}">
-                <input type="hidden" name="publisher" value="{{ $info['publisher'] ?? '' }}">
-                <input type="hidden" name="published_date" value="{{ $info['publishedDate'] ?? '' }}">
-                <input type="hidden" name="cover_image_url" value="{{ $info['imageLinks']['thumbnail'] ?? '' }}">
+                <form method="POST" action="{{ route('books.store') }}" class="books-item-action">
+                    @csrf
 
-                <input type="hidden" name="source" value="google_books">
-                <input type="hidden" name="source_id" value="{{ $sourceId }}">
+                    <input type="hidden" name="title" value="{{ $info['title'] ?? '' }}">
+                    <input type="hidden" name="author" value="{{ $info['authors'][0] ?? '' }}">
+                    <input type="hidden" name="publisher" value="{{ $info['publisher'] ?? '' }}">
+                    <input type="hidden" name="published_date" value="{{ $info['publishedDate'] ?? '' }}">
+                    <input type="hidden" name="cover_image_url" value="{{ $thumbnail ?? '' }}">
+                    <input type="hidden" name="source" value="google_books">
+                    <input type="hidden" name="source_id" value="{{ $sourceId }}">
 
                     @if($isRegistered)
                         <x-button type="button" size="sm" variant="muted" disabled>登録済み</x-button>
                     @else
                         <x-button type="submit" size="sm">登録</x-button>
                     @endif
-
-            </form>
-        </li>
-    @endforeach
-</ul>
+                </form>
+            </li>
+        @endforeach
+    </ul>
 @endif
 
 <x-footer />

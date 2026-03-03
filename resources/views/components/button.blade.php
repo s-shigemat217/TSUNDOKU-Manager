@@ -7,25 +7,25 @@
 ])
 
 @php
-    $base = 'inline-flex items-center justify-center rounded-md font-semibold no-underline select-none transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2';
+    $base = 'books-btn';
     $sizes = [
-        'sm' => 'px-4 py-2.5 text-sm',
-        'md' => 'px-5 py-3 text-base',
+        'sm' => 'books-btn-sm',
+        'md' => 'books-btn-md',
     ];
     $variants = [
-        'primary' => 'bg-[var(--primary-200)] text-[var(--bg-100)] hover:bg-[var(--primary-300)] focus-visible:ring-[var(--primary-100)]',
-        'warning' => 'bg-[var(--accent-100)] text-[var(--text-100)] hover:bg-[var(--accent-200)] focus-visible:ring-[var(--accent-200)]',
-        'danger' => 'bg-[var(--primary-300)] text-[var(--bg-100)] hover:bg-[var(--primary-200)] focus-visible:ring-[var(--primary-100)]',
-        'muted' => 'bg-[var(--bg-200)] text-[var(--text-200)] cursor-not-allowed',
-        'outline' => 'border border-[var(--bg-300)] text-[var(--text-100)] hover:bg-[var(--bg-100)] focus-visible:ring-[var(--primary-100)]',
+        'primary' => 'books-btn-primary',
+        'warning' => 'books-btn-warning',
+        'danger' => 'books-btn-danger',
+        'muted' => 'books-btn-muted',
+        'outline' => 'books-btn-outline',
     ];
 
     $sizeClass = $sizes[$size] ?? $sizes['md'];
     $variantClass = $variants[$variant] ?? $variants['primary'];
-    $classes = trim($base . ' ' . $sizeClass . ' ' . $variantClass);
+    $classes = trim($base.' '.$sizeClass.' '.$variantClass);
 
     if ($disabled) {
-        $classes .= ' opacity-60 pointer-events-none';
+        $classes .= ' is-disabled';
     }
 @endphp
 

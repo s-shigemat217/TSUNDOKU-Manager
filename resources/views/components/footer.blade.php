@@ -1,7 +1,10 @@
-    </div>
+        </div>
     </main>
-    <footer class="footer">
-        <small>&copy; 2026 My Library</small>
+
+    <footer class="books-footer">
+        <div class="landing-container">
+            <small>&copy; {{ date('Y') }} TSUNDOKU Manager</small>
+        </div>
     </footer>
 </body>
 </html>

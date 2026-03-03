@@ -3,28 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
-
-    <!-- Styles / Scripts -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Noto+Sans+JP:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
 
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body>
-    <header class="header">
-        <div class="logo">Read Tracker</div>
-        <nav class="nav">
-            <ul class="nav-list">
-                <li class="nav-item"><a href="#">ダッシュボード</a></li>
-                <li class="nav-item"><a href="/books/" >My 本棚</a></li>
-                <li class="nav-item"><a href="#" >読書ログ</a></li>
-            </ul>
-        </nav>
+<body class="landing-body books-body">
+    <div class="landing-orb landing-orb-a" aria-hidden="true"></div>
+    <div class="landing-orb landing-orb-b" aria-hidden="true"></div>
+
+    <header class="books-nav">
+        <div class="landing-container books-nav-inner">
+            <a href="{{ url('/') }}" class="landing-brand">TSUNDOKU <span>Manager</span></a>
+
+            <nav class="books-nav-links" aria-label="本棚メニュー">
+                <a href="{{ route('books.index') }}" class="{{ request()->routeIs('books.index') ? 'is-active' : '' }}">本棚</a>
+                <a href="{{ route('books.create') }}" class="{{ request()->routeIs('books.create') ? 'is-active' : '' }}">本を追加</a>
+                <a href="{{ route('profile.edit') }}" class="{{ request()->routeIs('profile.*') ? 'is-active' : '' }}">プロフィール</a>
+            </nav>
+
+            <div class="books-nav-user">
+                @auth
+                    <span>{{ Auth::user()->name }}</span>
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <button type="submit" class="books-logout-btn">ログアウト</button>
+                    </form>
+                @else
+                    @if (Route::has('login'))
+                        <a href="{{ route('login') }}" class="landing-main-btn">ログイン</a>
+                    @endif
+                @endauth
+            </div>
+        </div>
     </header>
-    <main class="p-10 min-h-screen">
-    <div class="max-w-7xl mx-auto px-4">
+
+    <main class="books-main">
+        <div class="landing-container books-shell">
