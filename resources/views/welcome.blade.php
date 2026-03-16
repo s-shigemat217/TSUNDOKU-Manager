@@ -29,7 +29,7 @@
 
                 <div class="landing-auth">
                     @auth
-                        <a href="{{ route('dashboard') }}" class="landing-ghost-btn">ダッシュボード</a>
+                        <a href="{{ route('books.index') }}" class="landing-ghost-btn">ダッシュボード</a>
                         <a href="{{ route('books.index') }}" class="landing-main-btn">本棚を開く</a>
                     @else
                         @if (Route::has('login'))
