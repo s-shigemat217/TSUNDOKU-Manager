@@ -696,6 +696,7 @@ body {
 }
 
 .auth-submit-btn {
+    margin-top: 1.5rem;
     border: 0;
     border-radius: 999px;
     padding: 0.72rem 1.1rem;
