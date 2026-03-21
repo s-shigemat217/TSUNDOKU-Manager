@@ -11,6 +11,17 @@
 
 ---
 
+## デモURL
+
+https://tsundoku-manager.fly.dev
+
+### テスト用アカウント
+
+email: test@example.com
+password: password
+
+---
+
 ## 制作背景
 
 私自身、本を買うこと自体は好きな一方で、
@@ -43,6 +54,22 @@
 - 本の詳細表示
 - 本の編集・削除
 - 読書ステータス管理（例：未読 / 読書中 / 読了 / 手放す）
+
+---
+
+## 画面イメージ
+
+### 1. 書籍一覧
+
+![ER Diagram](./docs/tsundoku_manager_img1.png)
+
+### 2. 書籍検索・登録画面
+
+![ER Diagram](./docs/tsundoku_manager_img2.png)
+
+### 3. 書籍詳細画面
+
+![ER Diagram](./docs/tsundoku_manager_img3.png)
 
 ---
 
