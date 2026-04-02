@@ -9,15 +9,6 @@
 「完璧に読まなければならない」という心理的ハードルを下げ、
 本と向き合う行動そのものを後押しすることを目的としています。
 
-## デモURL
-
-https://tsundoku-manager.fly.dev
-
-### テスト用アカウント
-
-email: test@example.com  
-password: password
-
 ## 制作背景
 
 私自身、本を買うこと自体は好きな一方で、
